@@ -184,9 +184,17 @@ namespace DriveUploadTool
 			}, TaskContinuationOptions.NotOnRanToCompletion);
 			task.ContinueWith(t =>
 			{
-				Logger.Debug("Closing the stream");
-				uploadStream.Dispose();
-				Logger.Debug("The stream was closed");
+				try
+				{
+					Logger.Debug("Closing the stream");
+					uploadStream.Dispose();
+					Logger.Debug("The stream was closed");
+				}
+				catch (Exception)
+				{
+
+					throw;
+				}
 			});
 
 			return task;
