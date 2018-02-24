@@ -59,6 +59,11 @@ namespace DriveUploadTool
 
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
+			if (string.IsNullOrEmpty(Title) )
+			{
+				return;
+			}
+
 			try
 			{
 				this.UploadFileName = UploadFileName;
