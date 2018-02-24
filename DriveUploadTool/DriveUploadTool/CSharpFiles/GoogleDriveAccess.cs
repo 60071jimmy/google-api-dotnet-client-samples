@@ -57,6 +57,37 @@ namespace DriveUploadTool
 		/// </summary>
 		private static File uploadedFile;
 
+		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName)
+		{
+			if (string.IsNullOrEmpty(Title))
+			{
+				return;
+			}
+			if (string.IsNullOrEmpty(UploadFileName))
+			{
+				return;
+			}
+			try
+			{
+				this.Title = Title;
+				this.Description = Description;
+				this.ParentId = ParentId;
+				this.UploadFileName = UploadFileName;
+				this.ContentType = GetContentTypeForFileName(UploadFileName);
+				new GoogleDriveAccess(Title, Description, ParentId, UploadFileName, ContentType).Run().Wait();
+			}
+			catch (AggregateException ex)
+			{
+				foreach (var e in ex.InnerExceptions)
+				{
+					Console.WriteLine("ERROR: " + e.Message);
+				}
+			}
+
+			Console.WriteLine("Press any key to continue...");
+			Console.ReadKey();
+		}
+
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
 			if (string.IsNullOrEmpty(Title) )
@@ -69,6 +100,9 @@ namespace DriveUploadTool
 			}
 			try
 			{
+				this.Title = Title;
+				this.Description = Description;
+				this.ParentId = ParentId;
 				this.UploadFileName = UploadFileName;
 				this.ContentType = ContentType;
 				new GoogleDriveAccess(Title, Description, ParentId, UploadFileName, ContentType).Run().Wait();
@@ -169,6 +203,26 @@ namespace DriveUploadTool
 			uploadedFile = file;
 		}
 
+		#endregion
+
+		#region Query ContentType
+		/// <summary>
+		/// GetContentTypeForFileName method could get ContentType of input file.
+		/// Reference: https://dotblogs.com.tw/larrynung/2011/03/24/22049
+		/// </summary>
+		/// <param name="fileName">The file which ContentType would be returnd.</param>
+		/// <returns>The ContentType of input file.</returns>
+		private string GetContentTypeForFileName(string fileName)
+		{
+			string ext = System.IO.Path.GetExtension(fileName);
+			using (Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext))
+			{
+				if (registryKey == null)
+					return null;
+				var value = registryKey.GetValue("Content Type");
+				return (value == null) ? string.Empty : value.ToString();
+			}
+		}
 		#endregion
 	}
 }
