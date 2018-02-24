@@ -23,11 +23,26 @@ namespace DriveUploadTool
 		private const int KB = 0x400;
 		private const int DownloadChunkSize = 256 * KB;
 
-		// CHANGE THIS with full path to the file you want to upload
-		private const string UploadFileName = @"FILE_TO_UPLOAD";
-
-		// CHANGE THIS if you upload a file type other than a jpg
-		private const string ContentType = @"image/jpeg";
+		/// <summary>
+		/// Title of the file to insert.
+		/// </summary>
+		private string Title = @"";
+		/// <summary>
+		/// Description of the file to insert.
+		/// </summary>
+		private string Description = @"";
+		/// <summary>
+		/// Parent folder's ID.
+		/// </summary>
+		private string ParentId = @"";
+		/// <summary>
+		/// Filename of the file to insert.
+		/// </summary>
+		private string UploadFileName = @"";
+		/// <summary>
+		/// Content type of the file to insert.
+		/// </summary>
+		private string ContentType = @"";
 
 		#endregion
 
@@ -42,11 +57,13 @@ namespace DriveUploadTool
 		/// </summary>
 		private static File uploadedFile;
 
-		public GoogleDriveAccess()
+		public GoogleDriveAccess(string UploadFileName, string ContentType)
 		{
 			try
 			{
-				new GoogleDriveAccess().Run().Wait();
+				this.UploadFileName = UploadFileName;
+				this.ContentType = ContentType;
+				new GoogleDriveAccess(UploadFileName, ContentType).Run().Wait();
 			}
 			catch (AggregateException ex)
 			{
@@ -77,24 +94,39 @@ namespace DriveUploadTool
 				ApplicationName = "DriveUploadTool",
 			});
 
-			await UploadFileAsync(service);
+			await UploadFileAsync(service, Title, Description, ParentId, ContentType, UploadFileName);
 
 			// uploaded succeeded
-			Console.WriteLine("\"{0}\" was uploaded successfully", uploadedFile.Title);
+			Console.WriteLine("\"{0}\" was uploaded successfully, fileID = {1}", uploadedFile.Title, uploadedFile.Id);
 		}
-		/// <summary>Uploads file asynchronously.</summary>
-		private Task<IUploadProgress> UploadFileAsync(DriveService service)
+		/// <summary>
+		/// Uploads file asynchronously.
+		/// </summary>
+		/// <param name="service">Drive API service instance.</param>
+		/// <param name="title">Title of the file to insert, including the extension.</param>
+		/// <param name="description">Description of the file to insert.</param>
+		/// <param name="parentId">Parent folder's ID.</param>
+		/// <param name="mimeType">MIME type of the file to insert.</param>
+		/// <param name="filename">Filename of the file to insert.</param>
+		/// <returns></returns>
+		private Task<IUploadProgress> UploadFileAsync(DriveService service, String title, String description, String parentId, String mimeType, String filename)
 		{
-			var title = UploadFileName;
-			if (title.LastIndexOf('\\') != -1)
-			{
-				title = title.Substring(title.LastIndexOf('\\') + 1);
-			}
+			// File's metadata.
+			File body = new File();
+			body.Title = title;
+			body.Description = description;
+			body.MimeType = mimeType;
 
-			var uploadStream = new System.IO.FileStream(UploadFileName, System.IO.FileMode.Open,
+			// Set the parent folder.
+			if (!String.IsNullOrEmpty(parentId))
+			{
+				body.Parents = new List<ParentReference>()
+				{ new ParentReference() {Id = parentId}};
+			}
+			var uploadStream = new System.IO.FileStream(filename, System.IO.FileMode.Open,
 				System.IO.FileAccess.Read);
 
-			var insert = service.Files.Insert(new File { Title = title }, uploadStream, ContentType);
+			var insert = service.Files.Insert(body, uploadStream, mimeType);
 
 			insert.ChunkSize = FilesResource.InsertMediaUpload.MinimumChunkSize * 2;
 			insert.ProgressChanged += Upload_ProgressChanged;
@@ -116,6 +148,7 @@ namespace DriveUploadTool
 
 			return task;
 		}
+
 		#region Progress and Response changes
 		static void Upload_ProgressChanged(IUploadProgress progress)
 		{
