@@ -307,8 +307,9 @@ namespace DriveUploadTool
 		static void Upload_ProgressChanged(IUploadProgress progress)
 		{
 			Console.WriteLine(	progress.Status + " " + 
-								progress.BytesSent + " Bytes = " + 
-								progress.BytesSent / KB + " KB = "
+								progress.BytesSent + " Bytes = " +
+								ByteToKB(progress.BytesSent).ToString() + " KB = " +
+								ByteToMB(progress.BytesSent).ToString() + " MB"
 								);
 		}
 
@@ -345,7 +346,7 @@ namespace DriveUploadTool
 		/// </summary>
 		/// <param name="Byte">The number in Byte which would transform to KB.</param>
 		/// <returns>Conversion result</returns>
-		private long ByteToKB(long Byte)
+		private static long ByteToKB(long Byte)
 		{
 			return Byte / 0x400;
 		}
@@ -355,7 +356,7 @@ namespace DriveUploadTool
 		/// </summary>
 		/// <param name="Byte">The number in Byte which would transform to MB.</param>
 		/// <returns>Conversion result</returns>
-		private long ByteToMB(long Byte)
+		private static long ByteToMB(long Byte)
 		{
 			return Byte / 0x100000;
 		}
