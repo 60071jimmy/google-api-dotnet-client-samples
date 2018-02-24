@@ -350,6 +350,15 @@ namespace DriveUploadTool
 			return Byte / 0x400;
 		}
 
+		/// <summary>
+		/// Transform unit to MB.
+		/// </summary>
+		/// <param name="Byte">The number in Byte which would transform to MB.</param>
+		/// <returns>Conversion result</returns>
+		private long ByteToMB(long Byte)
+		{
+			return Byte / 0x100000;
+		}
 		#endregion
 	}
 }
