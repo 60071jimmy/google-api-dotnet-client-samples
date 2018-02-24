@@ -306,7 +306,10 @@ namespace DriveUploadTool
 		#region Progress and Response changes
 		static void Upload_ProgressChanged(IUploadProgress progress)
 		{
-			Console.WriteLine(progress.Status + " " + progress.BytesSent + " Bytes");
+			Console.WriteLine(	progress.Status + " " + 
+								progress.BytesSent + " Bytes = " + 
+								progress.BytesSent / KB + " KB = "
+								);
 		}
 
 		static void Upload_ResponseReceived(File file)
