@@ -59,7 +59,7 @@ namespace DriveUploadTool
 
 		/// <summary>
 		/// GoogleDriveAccess constructor.
-		/// GoogleDriveAccess建構子
+		/// GoogleDriveAccess建構子。
 		/// </summary>
 		/// <param name="Title">Title of the file to insert to Google Drive.</param>
 		/// <param name="Description">Description of the file to insert to Google Drive.</param>
@@ -98,13 +98,13 @@ namespace DriveUploadTool
 
 		/// <summary>
 		/// GoogleDriveAccess constructor.
-		/// GoogleDriveAccess建構子
+		/// GoogleDriveAccess建構子。
 		/// </summary>
 		/// <param name="Title">Title of the file to insert to Google Drive.</param>
 		/// <param name="Description">Description of the file to insert to Google Drive.</param>
 		/// <param name="ParentId">Parent folder's ID on Google Drive.</param>
 		/// <param name="UploadFileName">Local filename of the file to insert to Google Drive.</param>
-		/// <param name="ContentType"></param>
+		/// <param name="ContentType">MIME type of the file to insert.</param>
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
 			if (string.IsNullOrEmpty(Title) )
