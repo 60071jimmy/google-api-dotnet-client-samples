@@ -341,10 +341,10 @@ namespace DriveUploadTool
 
 		#region Exponentiation translation
 		/// <summary>
-		/// 
+		/// Transform unit to KB.
 		/// </summary>
-		/// <param name="Byte"></param>
-		/// <returns></returns>
+		/// <param name="Byte">The number in Byte which would transform to KB.</param>
+		/// <returns>Conversion result</returns>
 		private long ByteToKB(long Byte)
 		{
 			return Byte / 0x400;
