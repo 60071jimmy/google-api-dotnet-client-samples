@@ -245,7 +245,7 @@ namespace DriveUploadTool
 			// uploaded succeeded
 			Console.WriteLine("\"{0}\" was uploaded successfully, fileID = {1}", uploadedFile.Title, uploadedFile.Id);
 			CSharpFiles.FileIO.Instance.FileWrite("Upload.log",
-				DateTime.Now  + "\t" + uploadedFile.Title + " was uploaded successfully, fileID = " + uploadedFile.Id, 
+				DateTime.Now  + "\t" + uploadedFile.Title + " was uploaded successfully, fileID = " + uploadedFile.Id + System.Environment.NewLine, 
 				System.IO.FileMode.Append);
 		}
 		/// <summary>
