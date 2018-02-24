@@ -62,8 +62,9 @@ namespace DriveUploadTool
 		private static File uploadedFile;
 
 		/// <summary>
-		/// GoogleDriveAccess constructor.
-		/// GoogleDriveAccess建構子。
+		/// GoogleDriveAccess constructor. This constructor would call GetContentTypeForFileName to get 
+		/// MIME type of the input file.
+		/// GoogleDriveAccess建構子。該建構子呼叫GetContentTypeForFileName方法取得欲上傳檔案之ContentType(MIME type)。
 		/// </summary>
 		/// <param name="Title">Title of the file to insert to Google Drive.</param>
 		/// <param name="Description">Description of the file to insert to Google Drive.</param>
