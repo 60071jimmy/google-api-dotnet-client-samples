@@ -57,6 +57,14 @@ namespace DriveUploadTool
 		/// </summary>
 		private static File uploadedFile;
 
+		/// <summary>
+		/// GoogleDriveAccess constructor.
+		/// GoogleDriveAccess建構子
+		/// </summary>
+		/// <param name="Title">Title of the file to insert to Google Drive.</param>
+		/// <param name="Description"></param>
+		/// <param name="ParentId"></param>
+		/// <param name="UploadFileName"></param>
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName)
 		{
 			if (string.IsNullOrEmpty(Title))
@@ -88,6 +96,15 @@ namespace DriveUploadTool
 			Console.ReadKey();
 		}
 
+		/// <summary>
+		/// GoogleDriveAccess constructor.
+		/// GoogleDriveAccess建構子
+		/// </summary>
+		/// <param name="Title">Title of the file to insert to Google Drive.</param>
+		/// <param name="Description"></param>
+		/// <param name="ParentId"></param>
+		/// <param name="UploadFileName"></param>
+		/// <param name="ContentType"></param>
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
 			if (string.IsNullOrEmpty(Title) )
