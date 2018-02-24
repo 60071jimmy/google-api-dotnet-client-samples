@@ -64,7 +64,7 @@ namespace DriveUploadTool
 		/// <param name="Title">Title of the file to insert to Google Drive.</param>
 		/// <param name="Description">Description of the file to insert to Google Drive.</param>
 		/// <param name="ParentId">Parent folder's ID on Google Drive.</param>
-		/// <param name="UploadFileName"></param>
+		/// <param name="UploadFileName">Local filename of the file to insert to Google Drive.</param>
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName)
 		{
 			if (string.IsNullOrEmpty(Title))
@@ -103,7 +103,7 @@ namespace DriveUploadTool
 		/// <param name="Title">Title of the file to insert to Google Drive.</param>
 		/// <param name="Description">Description of the file to insert to Google Drive.</param>
 		/// <param name="ParentId">Parent folder's ID on Google Drive.</param>
-		/// <param name="UploadFileName"></param>
+		/// <param name="UploadFileName">Local filename of the file to insert to Google Drive.</param>
 		/// <param name="ContentType"></param>
 		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
