@@ -57,13 +57,13 @@ namespace DriveUploadTool
 		/// </summary>
 		private static File uploadedFile;
 
-		public GoogleDriveAccess(string UploadFileName, string ContentType)
+		public GoogleDriveAccess(string Title, string Description, string ParentId, string UploadFileName, string ContentType)
 		{
 			try
 			{
 				this.UploadFileName = UploadFileName;
 				this.ContentType = ContentType;
-				new GoogleDriveAccess(UploadFileName, ContentType).Run().Wait();
+				new GoogleDriveAccess(Title, Description, ParentId, UploadFileName, ContentType).Run().Wait();
 			}
 			catch (AggregateException ex)
 			{
