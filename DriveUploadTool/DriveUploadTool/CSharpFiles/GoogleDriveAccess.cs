@@ -63,6 +63,47 @@ namespace DriveUploadTool
 
 		/// <summary>
 		/// GoogleDriveAccess constructor. This constructor would call GetContentTypeForFileName to get 
+		/// MIME type of the input file. Description of the file to insert to Google Drive would be set
+		/// as same as Title.
+		/// GoogleDriveAccess建構子。該建構子呼叫GetContentTypeForFileName方法取得欲上傳檔案之ContentType(MIME type)。
+		/// 檔案描述(Description)將與檔案標題(Title，Google雲端檔名)相同。
+		/// </summary>
+		/// <param name="Title">Title of the file to insert to Google Drive.</param>
+		/// <param name="ParentId">Parent folder's ID on Google Drive.</param>
+		/// <param name="UploadFileName">Local filename of the file to insert to Google Drive.</param>
+		public GoogleDriveAccess(string Title, string ParentId, string UploadFileName)
+		{
+			if (string.IsNullOrEmpty(Title))
+			{
+				return;
+			}
+			if (string.IsNullOrEmpty(UploadFileName))
+			{
+				return;
+			}
+			try
+			{
+				this.Title = Title;
+				this.Description = Title;
+				this.ParentId = ParentId;
+				this.UploadFileName = UploadFileName;
+				this.ContentType = GetContentTypeForFileName(UploadFileName);
+				this.Run().Wait();
+			}
+			catch (AggregateException ex)
+			{
+				foreach (var e in ex.InnerExceptions)
+				{
+					Console.WriteLine("ERROR: " + e.Message);
+				}
+			}
+
+			Console.WriteLine("Press any key to continue...");
+			Console.ReadKey();
+		}
+
+		/// <summary>
+		/// GoogleDriveAccess constructor. This constructor would call GetContentTypeForFileName to get 
 		/// MIME type of the input file.
 		/// GoogleDriveAccess建構子。該建構子呼叫GetContentTypeForFileName方法取得欲上傳檔案之ContentType(MIME type)。
 		/// </summary>
