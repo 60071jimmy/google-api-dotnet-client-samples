@@ -63,7 +63,10 @@ namespace DriveUploadTool
 			{
 				return;
 			}
-
+			if (string.IsNullOrEmpty(UploadFileName) )
+			{
+				return;
+			}
 			try
 			{
 				this.UploadFileName = UploadFileName;
