@@ -74,7 +74,7 @@ namespace DriveUploadTool
 				this.ParentId = ParentId;
 				this.UploadFileName = UploadFileName;
 				this.ContentType = GetContentTypeForFileName(UploadFileName);
-				new GoogleDriveAccess(Title, Description, ParentId, UploadFileName, ContentType).Run().Wait();
+				this.Run().Wait();
 			}
 			catch (AggregateException ex)
 			{
@@ -105,7 +105,7 @@ namespace DriveUploadTool
 				this.ParentId = ParentId;
 				this.UploadFileName = UploadFileName;
 				this.ContentType = ContentType;
-				new GoogleDriveAccess(Title, Description, ParentId, UploadFileName, ContentType).Run().Wait();
+				this.Run().Wait();
 			}
 			catch (AggregateException ex)
 			{
