@@ -296,8 +296,7 @@ namespace DriveUploadTool
 				}
 				catch (Exception)
 				{
-
-					throw;
+					
 				}
 			});
 
