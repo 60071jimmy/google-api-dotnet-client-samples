@@ -338,5 +338,18 @@ namespace DriveUploadTool
 			}
 		}
 		#endregion
+
+		#region Exponentiation translation
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Byte"></param>
+		/// <returns></returns>
+		private long ByteToKB(long Byte)
+		{
+			return Byte / 0x400;
+		}
+
+		#endregion
 	}
 }
