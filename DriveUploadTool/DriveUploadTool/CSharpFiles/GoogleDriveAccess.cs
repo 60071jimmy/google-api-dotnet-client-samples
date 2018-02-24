@@ -350,7 +350,7 @@ namespace DriveUploadTool
 		/// <returns>Conversion result</returns>
 		private static double ByteToKB(long Byte)
 		{
-			return Byte / 0x400;
+			return Byte / (double)0x400;
 		}
 
 		/// <summary>
@@ -360,7 +360,7 @@ namespace DriveUploadTool
 		/// <returns>Conversion result</returns>
 		private static double ByteToMB(long Byte)
 		{
-			return Byte / 0x100000;
+			return Byte / (double)0x100000;
 		}
 		#endregion
 	}
