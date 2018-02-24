@@ -348,7 +348,7 @@ namespace DriveUploadTool
 		/// </summary>
 		/// <param name="Byte">The number in Byte which would transform to KB.</param>
 		/// <returns>Conversion result</returns>
-		private static long ByteToKB(long Byte)
+		private static double ByteToKB(long Byte)
 		{
 			return Byte / 0x400;
 		}
@@ -358,7 +358,7 @@ namespace DriveUploadTool
 		/// </summary>
 		/// <param name="Byte">The number in Byte which would transform to MB.</param>
 		/// <returns>Conversion result</returns>
-		private static long ByteToMB(long Byte)
+		private static double ByteToMB(long Byte)
 		{
 			return Byte / 0x100000;
 		}
